@@ -72,12 +72,16 @@ data() {
       barcode: '',
       lastScanned: '',
       scanHistory: [],
+      midnightCleanupTimeoutId: null,
+      midnightCleanupIntervalId: null,
       currentPage: 1,
       pageSize: 5
     };
 },
   mounted() {
     this.focusInput();
+    this.clearStorageIfNewDay();
+    this.scheduleMidnightCleanup();
     // Load scan history from localStorage
     const saved = localStorage.getItem('scanHistory');
     if (saved) {
@@ -91,21 +95,79 @@ data() {
       }
     }
   },
+  beforeUnmount() {
+    if (this.midnightCleanupTimeoutId) {
+      clearTimeout(this.midnightCleanupTimeoutId);
+      this.midnightCleanupTimeoutId = null;
+    }
+    if (this.midnightCleanupIntervalId) {
+      clearInterval(this.midnightCleanupIntervalId);
+      this.midnightCleanupIntervalId = null;
+    }
+  },
   updated() {
     this.renderBarcode();
   },
   methods: {
+    clearStorageIfNewDay() {
+      const now = new Date();
+      const todayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      const lastCleanupDate = localStorage.getItem('lastCleanupDate');
+
+      if (lastCleanupDate !== todayKey) {
+        localStorage.removeItem('scanHistory');
+        localStorage.removeItem('printSequenceCounter');
+        this.scanHistory = [];
+        this.lastScanned = '';
+        this.currentPage = 1;
+      }
+
+      localStorage.setItem('lastCleanupDate', todayKey);
+    },
+    scheduleMidnightCleanup() {
+      const now = new Date();
+      const nextMidnight = new Date();
+      nextMidnight.setHours(24, 0, 0, 0);
+      const delay = nextMidnight.getTime() - now.getTime();
+
+      this.midnightCleanupTimeoutId = setTimeout(() => {
+        this.clearStorageIfNewDay();
+        this.midnightCleanupIntervalId = setInterval(() => {
+          this.clearStorageIfNewDay();
+        }, 24 * 60 * 60 * 1000);
+      }, delay);
+    },
     printBarcode() {
-      // C0001-6-02-28-3-A-R (remove '202' from year)
-      let value = this.lastScanned.slice(4,5)
+      const latestHistory = this.scanHistory[0];
+      const printValue = latestHistory && latestHistory.value === this.lastScanned
+        ? latestHistory.barcode
+        : this.buildPrintValue(this.lastScanned, this.getNextSequencePrefix(this.lastScanned));
+      let position = this.lastScanned.slice(4,6)
+
+      printBarcodeSVG(printValue, position);
+    },
+    getNextSequencePrefix(scannedValue) {
+      const relatedRecords = this.scanHistory.filter(item => item.value === scannedValue);
+      if (relatedRecords.length === 0) {
+        return 'C0001';
+      }
+
+      const maxSequence = relatedRecords.reduce((max, item) => {
+        const match = /^C(\d{4})/.exec(item.barcode || '');
+        const parsed = match ? Number(match[1]) : 0;
+        return parsed > max ? parsed : max;
+      }, 0);
+
+      const nextSequence = maxSequence >= 9999 ? 1 : maxSequence + 1;
+      return `C${String(nextSequence).padStart(4, '0')}`;
+    },
+    buildPrintValue(currentScanned, codePrefix) {
+      const value = currentScanned.slice(4,5)
       const date = new Date();
       const year = date.getFullYear().toString().replace('202', '');
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const day = String(date.getDate()).padStart(2, '0');
-      let printValue = `C0001${year}${month}${day}31${value}`;
-      let position = this.lastScanned.slice(4,6)
-
-      printBarcodeSVG(printValue, position);
+      return `${codePrefix}${year}${month}${day}31${value}`
     },
     focusInput() {
       this.$refs.barcodeInput && this.$refs.barcodeInput.focus();
@@ -113,12 +175,7 @@ data() {
     handleBarcode() {
       if (this.barcode) {
         this.lastScanned = this.barcode;
-        let value = this.lastScanned.slice(4,5)
-        const date = new Date();
-        const year = date.getFullYear().toString().replace('202', '');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        let printValue = `C0001${year}${month}${day}31${value}`;
+        let printValue = this.buildPrintValue(this.lastScanned, this.getNextSequencePrefix(this.barcode))
 
         this.scanHistory.unshift({
           value: this.barcode,
@@ -128,9 +185,9 @@ data() {
         // Save to localStorage
         localStorage.setItem('scanHistory', JSON.stringify(this.scanHistory));
         // Print after scan
-        this.$nextTick(() => {
-          this.printBarcode();
-        });
+        // this.$nextTick(() => {
+        //   this.printBarcode();
+        // });
         this.barcode = '';
         // If new record on first page, stay on first page
         if (this.currentPage !== 1) this.currentPage = 1;
@@ -145,12 +202,10 @@ data() {
     },
     renderBarcode() {
       if (this.lastScanned && this.$refs.barcodeSvg) {
-        let value = this.lastScanned.slice(4,5)
-        const date = new Date();
-        const year = date.getFullYear().toString().replace('202', '');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        let printValue = `C0001${year}${month}${day}3A${value}`;
+        const latestHistory = this.scanHistory[0];
+        const printValue = latestHistory && latestHistory.value === this.lastScanned
+          ? latestHistory.barcode
+          : this.buildPrintValue(this.lastScanned, 'C0001');
         JsBarcode(this.$refs.barcodeSvg, printValue, {
           format: 'CODE39',
           lineColor: '#000',
