@@ -19,8 +19,9 @@ export function printBarcodeSVG(printValue, value = 'LH') {
   if (textElement) {
     const svgWidth = svgElement.viewBox?.baseVal?.width || parseFloat(svgElement.getAttribute('width')) || 0;
     if (svgWidth > 0) {
-      const stretchWidth = svgWidth * 0.96;
-      const startX = (svgWidth - stretchWidth) / 2;
+      const sideMargin = svgWidth * 0.06;
+      const stretchWidth = Math.max(0, svgWidth - sideMargin * 2);
+      const startX = sideMargin;
       textElement.setAttribute('x', String(startX));
       textElement.setAttribute('text-anchor', 'start');
       textElement.setAttribute('textLength', String(stretchWidth));
