@@ -7,7 +7,7 @@ export function printBarcodeSVG(printValue, value = 'LH') {
     format: 'CODE39',
     lineColor: '#000',
     width: 10,
-    height: 100,
+    height: 400,
     displayValue: true,
     fontSize: 35,
     fontOptions: 'bold'
@@ -46,7 +46,6 @@ export function printBarcodeSVG(printValue, value = 'LH') {
     <body>
       <div class="barcode-svg-wrapper" style="margin-top: -1rem;">${svg}<span class="barcode-prefix">${value}</span></div>
       <script>
-        window.onload = function() {
           window.focus();
           window.print();
         };
