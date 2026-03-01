@@ -6,8 +6,8 @@ export function printBarcodeSVG(printValue, value = 'LH') {
   JsBarcode(svgElement, printValue, {
     format: 'CODE39',
     lineColor: '#000',
-    width: 5,
-    height: 85,
+    width: 10,
+    height: 100,
     displayValue: true,
     fontSize: 35,
     fontOptions: 'bold'
