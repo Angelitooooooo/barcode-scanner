@@ -4,6 +4,7 @@ import JsBarcode from 'jsbarcode';
 export function printBarcodeSVG(printValue, value = 'LH') {
   const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   JsBarcode(svgElement, printValue, {
+    text: `*${printValue}*`,
     format: 'CODE39',
     lineColor: '#000',
     width: 10,

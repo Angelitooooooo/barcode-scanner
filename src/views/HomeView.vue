@@ -147,7 +147,11 @@ data() {
       printBarcodeSVG(printValue, position);
     },
     getNextSequencePrefix(scannedValue) {
-      const relatedRecords = this.scanHistory.filter(item => item.value === scannedValue);
+      const scannedPosition = (scannedValue || '').slice(4, 6).toUpperCase();
+      const relatedRecords = this.scanHistory.filter((item) => {
+        const itemPosition = (item.value || '').slice(4, 6).toUpperCase();
+        return itemPosition === scannedPosition;
+      });
       if (relatedRecords.length === 0) {
         return 'C0001';
       }
