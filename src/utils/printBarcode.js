@@ -41,11 +41,11 @@ export function printBarcodeSVG(printValue, value = 'LH') {
         html, body { width: 100%; height: 100%; margin: 0; padding: 0; }
         body { display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: Arial, sans-serif; }
         .barcode-value { font-size: 1.1rem; margin: 0 0 0.2rem 0; font-family: 'Fira Mono', 'Consolas', monospace; text-align: center; width: 100%; }
-        .barcode-print-container { width: calc(100% - 0.5rem); margin: 0 0.25rem; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; }
-        .barcode-svg-wrapper { width: 100%; max-width: 100%; height: auto; padding: 0 0.5rem; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 0.4rem; overflow: visible; }
+        .barcode-print-container { width: 100%; margin: 0; padding: 0 0.25rem; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; }
+        .barcode-svg-wrapper { width: 100%; max-width: 100%; height: auto; padding: 0; box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 0.4rem; overflow: visible; }
         .barcode-text-below { width: auto; max-width: 100%; display: block; font-size: 3rem; font-weight: 700; line-height: 1; margin-top: 0.15rem; font-family: 'Fira Mono', 'Consolas', monospace; box-sizing: border-box; overflow: hidden; white-space: nowrap; }
         .barcode-prefix { font-size: 2.5rem; font-weight: 700; line-height: 1; white-space: nowrap; flex: 0 0 auto; }
-        svg { width: calc(100% - 4.5rem) !important; height: auto !important; max-width: calc(100% - 4.5rem); max-height: 100vh; display: block; margin: 0; flex: 1 1 auto; min-width: 0; }
+        svg { width: 100% !important; height: auto !important; max-width: 100%; max-height: 100vh; display: block; margin: 0; min-width: 0; }
       </style>
     </head>
     <body>
