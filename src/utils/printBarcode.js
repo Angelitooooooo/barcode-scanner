@@ -6,11 +6,22 @@ export function printBarcodeSVG(printValue, value = 'LH') {
   JsBarcode(svgElement, printValue, {
     format: 'CODE39',
     lineColor: '#000',
-    width: 2,
+    width: 4,
     height: 60,
     displayValue: true,
     fontSize: 28
   });
+
+  const textElement = svgElement.querySelector('text');
+  if (textElement) {
+    const svgWidth = svgElement.viewBox?.baseVal?.width || parseFloat(svgElement.getAttribute('width'));
+    if (svgWidth) {
+      textElement.setAttribute('x', '0');
+      textElement.setAttribute('text-anchor', 'start');
+      textElement.setAttribute('textLength', String(svgWidth));
+      textElement.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+    }
+  }
 
   let svg = svgElement.outerHTML;
   const printWindow = window.open('', '', 'width=400,height=300');
@@ -35,9 +46,9 @@ export function printBarcodeSVG(printValue, value = 'LH') {
           window.focus();
           window.print();
         };
-        window.onafterprint = function() {
-            window.close();
-        };
+        // window.onafterprint = function() {
+        //     window.close();
+        // };
       </script>
     </body>
     </html>
