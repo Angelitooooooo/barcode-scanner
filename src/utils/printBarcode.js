@@ -30,8 +30,12 @@ export function printBarcodeSVG(printValue, value = 'LH') {
     <body>
       <div class="barcode-svg-wrapper">${svg}<span class="barcode-prefix">${value}</span></div>
       <script>
+        window.onload = function() {
+          window.focus();
+          window.print();
+        };
         window.onafterprint = function() {
-          window.close();
+            window.close();
         };
       </script>
     </body>
