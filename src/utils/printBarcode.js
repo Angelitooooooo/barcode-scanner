@@ -8,7 +8,8 @@ export function printBarcodeSVG(printValue, value = 'LH') {
     lineColor: '#000',
     width: 2,
     height: 60,
-    displayValue: true
+    displayValue: true,
+    fontSize: 28
   });
 
   let svg = svgElement.outerHTML;
@@ -23,7 +24,7 @@ export function printBarcodeSVG(printValue, value = 'LH') {
         body { display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: Arial, sans-serif; }
         .barcode-value { font-size: 1.1rem; margin: 0 0 0.2rem 0; font-family: 'Fira Mono', 'Consolas', monospace; text-align: center; width: 100%; }
         .barcode-svg-wrapper { width: 100vw; height: 100vh; padding: 0 0.5rem; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 0.2rem; overflow: hidden; }
-        .barcode-prefix { font-size: 6rem; font-weight: 700; line-height: 1; white-space: nowrap; }
+        .barcode-prefix { font-size: 5rem; font-weight: 700; line-height: 1; white-space: nowrap; }
         svg { width: auto !important; height: auto !important; max-width: calc(100vw - 2.5rem); max-height: 100vh; display: block; margin: 0; }
       </style>
     </head>
