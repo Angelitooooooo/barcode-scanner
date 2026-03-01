@@ -9,17 +9,21 @@ export function printBarcodeSVG(printValue, value = 'LH') {
     width: 4,
     height: 60,
     displayValue: true,
-    fontSize: 28
+    fontSize: 28,
+    fontOptions: 'bold'
   });
 
   const textElement = svgElement.querySelector('text');
   if (textElement) {
     const svgWidth = svgElement.viewBox?.baseVal?.width || parseFloat(svgElement.getAttribute('width'));
     if (svgWidth) {
-      textElement.setAttribute('x', '0');
+      const stretchRatio = 0.9;
+      const textWidth = svgWidth * stretchRatio;
+      const offsetX = (svgWidth - textWidth) / 2;
+      textElement.setAttribute('x', String(offsetX));
       textElement.setAttribute('text-anchor', 'start');
-      textElement.setAttribute('textLength', String(svgWidth));
-      textElement.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+      textElement.setAttribute('textLength', String(textWidth));
+      textElement.setAttribute('lengthAdjust', 'spacing');
     }
   }
 
@@ -46,9 +50,9 @@ export function printBarcodeSVG(printValue, value = 'LH') {
           window.focus();
           window.print();
         };
-        // window.onafterprint = function() {
-        //     window.close();
-        // };
+        window.onafterprint = function() {
+            window.close();
+        };
       </script>
     </body>
     </html>
