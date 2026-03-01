@@ -9,7 +9,7 @@ export function printBarcodeSVG(printValue, value = 'LH') {
     width: 10,
     height: 400,
     displayValue: true,
-    fontSize: 35,
+    fontSize: 150,
     fontOptions: 'bold'
   });
 
