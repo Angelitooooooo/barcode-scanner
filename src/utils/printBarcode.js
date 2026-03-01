@@ -29,7 +29,7 @@ export function printBarcodeSVG(printValue, value = 'LH') {
       </style>
     </head>
     <body>
-      <div class="barcode-svg-wrapper">${svg}<span class="barcode-prefix">${value}</span></div>
+      <div class="barcode-svg-wrapper" style="margin-top: -1rem;">${svg}<span class="barcode-prefix">${value}</span></div>
       <script>
         window.onload = function() {
           window.focus();
