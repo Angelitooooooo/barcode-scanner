@@ -11,8 +11,8 @@ export function printBarcodeSVG(svgElement) {
       <title>Print Barcode</title>
       <style>
         @page { size: 70mm 40mm; margin: 0; }
-        html, body { width: 70mm; height: 40mm; margin: 0; padding: 0; }
-        body { display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: Arial, sans-serif; }
+        html, body { margin: 0; padding: 0; }
+        body { width: 70mm; height: 40mm; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: Arial, sans-serif; }
         .barcode-value { font-size: 1.1rem; margin: 0 0 0.2rem 0; font-family: 'Fira Mono', 'Consolas', monospace; text-align: center; width: 100%; }
         .barcode-svg-wrapper { width: 70mm; height: 32mm; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         svg { width: 68mm !important; height: 30mm !important; display: block; margin: 0 auto; }
