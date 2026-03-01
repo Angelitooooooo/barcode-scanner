@@ -102,9 +102,10 @@ data() {
       const year = date.getFullYear().toString().replace('202', '');
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const day = String(date.getDate()).padStart(2, '0');
-      let printValue = `C0001${year}${month}${day}3A${value}`;
+      let printValue = `C0001${year}${month}${day}31${value}`;
+      let position = this.lastScanned.slice(4,6)
 
-      printBarcodeSVG(this.$refs.barcodeSvg, printValue);
+      printBarcodeSVG(printValue, position);
     },
     focusInput() {
       this.$refs.barcodeInput && this.$refs.barcodeInput.focus();
@@ -117,7 +118,7 @@ data() {
         const year = date.getFullYear().toString().replace('202', '');
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        let printValue = `C0001${year}${month}${day}3A${value}`;
+        let printValue = `C0001${year}${month}${day}31${value}`;
 
         this.scanHistory.unshift({
           value: this.barcode,
