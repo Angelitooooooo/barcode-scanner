@@ -185,9 +185,9 @@ data() {
         // Save to localStorage
         localStorage.setItem('scanHistory', JSON.stringify(this.scanHistory));
         // Print after scan
-        // this.$nextTick(() => {
-        //   this.printBarcode();
-        // });
+        this.$nextTick(() => {
+          this.printBarcode();
+        });
         this.barcode = '';
         // If new record on first page, stay on first page
         if (this.currentPage !== 1) this.currentPage = 1;
