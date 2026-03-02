@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import JsBarcode from 'jsbarcode';
+import bwipjs from 'bwip-js';
 import { printBarcodeSVG } from '@/utils/printBarcode';
 
 export default {
@@ -210,12 +210,24 @@ data() {
         const printValue = latestHistory && latestHistory.value === this.lastScanned
           ? latestHistory.barcode
           : this.buildPrintValue(this.lastScanned, 'C0001');
-        JsBarcode(this.$refs.barcodeSvg, printValue, {
-          format: 'CODE39',
-          lineColor: '#000',
-          width: 2,
-          height: 60,
-          displayValue: true
+        const generated = bwipjs.toSVG({
+          bcid: 'code39',
+          text: printValue,
+          includetext: true,
+          textxalign: 'center',
+          scaleX: 2,
+          scaleY: 2,
+          height: 12,
+          paddingwidth: 0,
+          paddingheight: 0,
+        });
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(generated, 'image/svg+xml');
+        const generatedSvg = doc.documentElement;
+        this.$refs.barcodeSvg.innerHTML = generatedSvg.innerHTML;
+        Array.from(generatedSvg.attributes).forEach((attr) => {
+          this.$refs.barcodeSvg.setAttribute(attr.name, attr.value);
         });
       } else if (this.$refs.barcodeSvg) {
         this.$refs.barcodeSvg.innerHTML = '';

@@ -1,37 +1,19 @@
-import JsBarcode from 'jsbarcode';
+import bwipjs from 'bwip-js';
 
 // src/utils/printBarcode.js
 export function printBarcodeSVG(printValue, value = 'LH') {
-  const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  JsBarcode(svgElement, printValue, {
-    text: `*${printValue}*`,
-    format: 'CODE39',
-    lineColor: '#000',
-    width: 10,
-    height: 400,
-    margin: 0,
-    displayValue: true,
-    fontSize: 140,
-    fontOptions: 'bold',
-    textMargin: 20,
+  const svg = bwipjs.toSVG({
+    bcid: 'code39',
+    text: printValue,
+    includetext: true,
+    textxalign: 'center',
+    scaleX: 10,
+    scaleY: 10,
+    height: 40,
+    paddingwidth: 0,
+    paddingheight: 0,
   });
 
-  const textElement = svgElement.querySelector('text');
-  if (textElement) {
-    const svgWidth = svgElement.viewBox?.baseVal?.width || parseFloat(svgElement.getAttribute('width')) || 0;
-    if (svgWidth > 0) {
-      const sideMargin = svgWidth * 0.06;
-      const stretchWidth = Math.max(0, svgWidth - sideMargin * 2);
-      const startX = sideMargin;
-      textElement.setAttribute('x', String(startX));
-      textElement.setAttribute('text-anchor', 'start');
-      textElement.setAttribute('textLength', String(stretchWidth));
-      textElement.setAttribute('lengthAdjust', 'spacing');
-    }
-  }
-
-
-  let svg = svgElement.outerHTML;
   const printWindow = window.open('', '', 'width=1200,height=800');
   printWindow.document.write(`
     <html>
