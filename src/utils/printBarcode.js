@@ -28,7 +28,7 @@ export function printBarcodeSVG(printValue, value = 'LH') {
         .barcode-svg-wrapper { width: auto; max-width: 100%; height: auto; padding: 0; box-sizing: border-box; display: block; overflow: hidden; }
         .barcode-text-below { width: max-content; max-width: 100%; display: block; margin-top: 0.2rem; margin-left: auto; margin-right: auto; align-self: center; text-align: center; font-size: 1.1rem; font-weight: 900; line-height: 1; letter-spacing: 0.28em; font-family: 'Fira Mono', 'Consolas', monospace; white-space: nowrap; }
         .barcode-prefix { font-size: 5rem; font-weight: 700; line-height: 0.9; white-space: nowrap; flex: 0 0 auto; margin-bottom: 1.2rem; }
-        svg { width: auto !important; height: 75px !important; max-width: none; max-height: none; display: block; margin: 0; min-width: 0; }
+        svg { width: 260px !important; height: 55px !important; max-width: 260px; max-height: 55px; display: block; margin: 0; min-width: 0; }
       </style>
     </head>
     <body>
