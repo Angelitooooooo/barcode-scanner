@@ -23,7 +23,7 @@ export function printBarcodeSVG(printValue, value = 'LH') {
         @page { margin: 0; }
         html, body { width: 100%; height: 100%; margin: 0; padding: 0; }
         body { display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: Arial, sans-serif; }
-        .barcode-print-container { width: 100%; margin: 0; padding: 0 0.25rem; display: inline-flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 1rem; box-sizing: border-box; transform: scale(0.7); transform-origin: center center; }
+        .barcode-print-container { width: 100%; margin: 0; padding: 0 0.25rem; display: inline-flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 1rem; box-sizing: border-box; transform: scale(0.35); transform-origin: center center; }
         .barcode-main-column { display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; }
         .barcode-svg-wrapper { width: auto; max-width: 100%; height: auto; padding: 0; box-sizing: border-box; display: block; overflow: hidden; }
         .barcode-text-below { width: max-content; max-width: 100%; display: block; margin-top: 0.2rem; margin-left: auto; margin-right: auto; align-self: center; text-align: center; font-size: 1.1rem; font-weight: 900; line-height: 1; letter-spacing: 0.28em; font-family: 'Fira Mono', 'Consolas', monospace; white-space: nowrap; }
