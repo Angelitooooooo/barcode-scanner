@@ -9,7 +9,7 @@ export function printBarcodeSVG(printValue, value = 'LH') {
     includetext: false,
     scaleX: 7,
     scaleY: 5,
-    height: 35,
+    height: 26,
     paddingwidth: 0,
     paddingheight: 0,
   });
@@ -27,8 +27,8 @@ export function printBarcodeSVG(printValue, value = 'LH') {
         .barcode-main-column { display: inline-flex; flex-direction: column; align-items: center; justify-content: flex-end; }
         .barcode-svg-wrapper { width: auto; max-width: 100%; height: auto; padding: 0; box-sizing: border-box; display: block; overflow: hidden; }
         .barcode-text-below { width: max-content; max-width: 100%; display: block; margin-top: 0.2rem; margin-left: auto; margin-right: auto; align-self: center; text-align: center; font-size: 2.1rem; font-weight: 900; line-height: 1; letter-spacing: 0.28em; font-family: 'Fira Mono', 'Consolas', monospace; white-space: nowrap; }
-        .barcode-prefix { font-size: 12rem; font-weight: 700; line-height: 0.9; white-space: nowrap; flex: 0 0 auto; margin-bottom: 1.2rem; }
-        svg { width: auto !important; height: 200px !important; max-width: none; max-height: none; display: block; margin: 0; min-width: 0; }
+        .barcode-prefix { font-size: 10rem; font-weight: 700; line-height: 0.9; white-space: nowrap; flex: 0 0 auto; margin-bottom: 1.2rem; }
+        svg { width: auto !important; height: 150px !important; max-width: none; max-height: none; display: block; margin: 0; min-width: 0; }
       </style>
     </head>
     <body>
