@@ -24,18 +24,12 @@ export function printBarcodeSVG(printValue, value = 'LH') {
         @page { size: 70mm 20mm; margin: 0; }
         html, body { width: 70mm; height: 20mm; margin: 0; padding: 0; overflow: hidden; }
         body { font-family: Arial, sans-serif; }
-        .barcode-print-container { width: 70mm; height: 20mm; margin: 0; padding: 0 2mm; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 0.8mm; box-sizing: border-box; overflow: hidden; }
+        .barcode-print-container { width: 70mm; height: 20mm; margin: 0; padding: 0 2mm; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 0.8mm; box-sizing: border-box; overflow: hidden; }
         .barcode-main-column { flex: 0 0 auto; width: auto; min-width: 0; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; }
         .barcode-svg-wrapper { width: auto; max-width: 52mm; height: auto; padding: 0; box-sizing: border-box; display: block; overflow: hidden; }
         .barcode-text-below { width: max-content; max-width: 100%; display: block; margin-top: 0.2rem; margin-left: auto; margin-right: auto; align-self: center; text-align: center; font-size: 1rem; font-weight: 900; line-height: 1; letter-spacing: 0.28em; font-family: 'Fira Mono', 'Consolas', monospace; white-space: nowrap; }
         .barcode-prefix { font-size: 2.2rem; font-weight: 700; line-height: 0.9; white-space: nowrap; flex: 0 0 auto; margin: 0; }
         svg { width: auto !important; height: 9.5mm !important; max-width: 52mm; max-height: 9.5mm; display: block; margin: 0; min-width: 0; }
-        svg text {
-          font-weight: 700 !important;
-          stroke: #000;
-          stroke-width: 0.22px;
-          paint-order: stroke fill;
-        }
       </style>
     </head>
     <body>
