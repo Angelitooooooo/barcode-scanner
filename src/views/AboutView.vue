@@ -23,9 +23,6 @@ export default {
         shippingDate: '',
         containerNo: '',
         plant: 'TBPC',
-        qrBoxSizeMm: 32,   // increase/decrease QR box size
-        qrPaddingMm: 1.0,  // inner space around QR
-        qrScale: 10         // generation scale
         });
     },
   },

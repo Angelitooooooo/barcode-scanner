@@ -11,11 +11,12 @@ function escapeHtml(value) {
 
 
 export async function print(options = {}) {
-	const qrBoxSizeMm = options.qrBoxSizeMm ?? 34;
-	const qrPaddingMm = options.qrPaddingMm ?? 1.1;
-	const qrOffsetXMm = options.qrOffsetXMm ?? 0;
-	const qrOffsetYMm = options.qrOffsetYMm ?? 11.8;
-	const qrPixelSize = options.qrPixelSize ?? Math.round(qrBoxSizeMm * 10);
+	const qrBoxSizeMm =  41;
+	const qrPaddingMm = 0.1;
+	const qrOffsetXMm =  0;
+	const qrOffsetYMm =  11.8;
+	const qrPixelSize = Math.round(qrBoxSizeMm * 10);
+	const qrMargin = options.qrMargin ?? 0;
 
 	const data = {
 		specification: options.specification ?? 'KBB1',
@@ -31,7 +32,7 @@ export async function print(options = {}) {
 	const qrSvg = await QRCode.toString(qrValue, {
 		type: 'svg',
 		errorCorrectionLevel: 'H',
-		margin: 1,
+		margin: qrMargin,
 		width: qrPixelSize,
 		color: {
 			dark: '#000000',
@@ -87,7 +88,7 @@ export async function print(options = {}) {
 					padding: 4.6mm 4mm 4.2mm 4mm;
 					box-sizing: border-box;
 					display: grid;
-					grid-template-columns: 1fr 35mm;
+					grid-template-columns: 1fr 44mm;
 					grid-template-rows: auto 1fr;
 					column-gap: 2.6mm;
 					row-gap: 1.8mm;
